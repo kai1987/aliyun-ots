@@ -1,0 +1,49 @@
+{
+  "name": "aliyun-ots",
+  "version": "1.0.0",
+  "description": "Awesome module",
+  "keywords": [
+    "keyword1",
+    "keyword2"
+  ],
+  "homepage": "https://github.com/soliury/aliyun-ots",
+  "bugs": "https://github.com/soliury/aliyun-ots/issues",
+  "author": {
+    "name": "soliury",
+    "email": "hi@lingyong.me",
+    "url": "https://github.com/soliury"
+  },
+  "main": "./lib/aliyun-ots.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soliury/aliyun-ots.git"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "dependencies": {
+    "protobuf": "^0.11.0",
+    "request": "^2.49.0",
+    "utility": "^1.2.1",
+    "when": "^3.6.3"
+  },
+  "devDependencies": {
+    "chai": "^1.9.1",
+    "coffee-errors": "^0.8.6",
+    "coffee-script": "^1.8.0",
+    "gulp": "^3.8.6",
+    "gulp-changed": "^1.0.0",
+    "gulp-coffee": "^2.1.1",
+    "gulp-istanbul": "^0.3.1",
+    "gulp-mocha": "^1.1.1",
+    "gulp-util": "^3.0.0",
+    "mocha": "^2.0.0",
+    "sinon": "^1.9.1",
+    "sinon-chai": "^2.5.0"
+  },
+  "engines": {
+    "node": ">=0.10.0",
+    "npm": ">=1.2.10"
+  },
+  "license": "MIT"
+}
