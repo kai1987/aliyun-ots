@@ -16,6 +16,8 @@ schemaDesc = new Schema fs.readFileSync './ots_protocol.desc'
 
 schemas = {}
 schema = (name) ->
+  if name == 'CreateTable' or name == 'DeleteTable'
+    return undefined
   schemas[name] ?= schemaDesc["com.aliyun.cloudservice.ots2.#{name}"]
 
 Client = (options)->
@@ -37,12 +39,10 @@ Client = (options)->
 exports = module.exports = Client
 
 Client::query = (action, params, cb) ->
-  params ?= {}
   if _.isFunction(params)
-    [params, cb] = [{}, params]
-  console.log params
-  body = schema("#{action}Request").serialize params
-  requestResult = @request action, body
+    [params, cb] = [null, params]
+  body = schema("#{action}Request").serialize params if params
+  requestResult = @request action, body || ''
   bindCallback requestResult, cb
 
 Client::createTable = (name, primaryKeys, capacityUnit, cb)->
@@ -68,6 +68,7 @@ Client::describeTable = (name, cb)->
     tableName: name
 
   @query 'DescribeTable', params, cb
+
 
 Client::listTable = (cb)->
   @query 'ListTable', cb
@@ -157,15 +158,25 @@ Client::request = (opAction, body)->
   .then ([res, body]) =>
     statusCode = res.statusCode
     if statusCode != 200
-      throw new Error "RequestError Code=#{statusCode} body=#{body}"
+      err = new Error()
+      try
+        info = schema("Error").parse body
+        err.name = info.code
+        err.message = info.message
+      catch
+        err.name = 'requestError'
+        err.message = "code=#{statusCode}"
+        throw err
+      throw err
     if !@_check_response_sign res, canonicalURI
       throw new Error 'WrongResponseSign'
 
     protoResponse = schema("#{opAction}Response")
-    console.log body.toString()
+    if !protoResponse
+      return [null, res]
     try
       result = protoResponse.parse body
-    finally
+    catch
       result = body.toString()
 
     return [result, res]

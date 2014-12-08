@@ -53,13 +53,12 @@ describe '#test client', ->
     it 'should get descibe info', (done)->
       client.describeTable 'test1'
       .done ([result, res])->
-        if result
-          res.statusCode.should.equal 200
-          should.exist result
-          should.exist result.tableName
-          result.tableMeta.tableName.should.equal 'test1'
-          result.tableMeta.primaryKey[0].name.should.equal 'CardID'
+        res.statusCode.should.equal 200
+        should.exist result.tableMeta
+        result.tableMeta.tableName.should.equal 'test1'
+        result.tableMeta.primaryKey[0].name.should.equal 'CardID'
         done()
+
       , (err)->
         console.log err
         done err
