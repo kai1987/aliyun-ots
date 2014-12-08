@@ -18,61 +18,6 @@ schemas = {}
 schema = (name) ->
   schemas[name] ?= schemaDesc["com.aliyun.cloudservice.ots2.#{name}"]
 
-# ErrorMessage = schema['com.aliyun.cloudservice.ots2.ErrorMessage']
-
-# CreateTableRequest = schema['com.aliyun.cloudservice.ots2.CreateTableRequest']
-# UpdateTableRequest = schema['com.aliyun.cloudservice.ots2.UpdateTableRequest']
-# UpdateTableResponse = schema['com.aliyun.cloudservice.ots2.UpdateTableResponse']
-# DescribeTableRequest = schema['com.aliyun.cloudservice.ots2.DescribeTableRequest']
-# DescribeTableResponse = schema['com.aliyun.cloudservice.ots2.DescribeTableResponse']
-# ListTableResponse = schema['com.aliyun.cloudservice.ots2.ListTableResponse']
-# DeleteTableRequest = schema['com.aliyun.cloudservice.ots2.DeleteTableRequest']
-
-
-# GetRowRequest = schema['com.aliyun.cloudservice.ots2.GetRowRequest']
-# GetRowResponse = schema['com.aliyun.cloudservice.ots2.GetRowResponse']
-# ColumnUpdate = schema['com.aliyun.cloudservice.ots2.ColumnUpdate']
-# UpdateRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowRequest']
-# UpdateRowResponse = schema['com.aliyun.cloudservice.ots2.UpdateRowResponse']
-# PutRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowRequest']
-# PutRowResponse = schema['com.aliyun.cloudservice.ots2.PutRowResponse']
-# DeleteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowRequest']
-# DeleteRowResponse = schema['com.aliyun.cloudservice.ots2.DeleteRowResponse']
-
-
-# RowInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowRequest']
-# TableInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowRequest']
-# BatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.BatchGetRowRequest']
-# RowInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowResponse']
-# TableInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowResponse']
-# BatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.BatchGetRowResponse']
-# PutRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowInBatchWriteRowRequest']
-# UpdateRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowInBatchWriteRowRequest']
-# DeleteRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowInBatchWriteRowRequest']
-# TableInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowRequest']
-# BatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.BatchWriteRowRequest']
-# RowInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchWriteRowResponse']
-# TableInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowResponse']
-# BatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.BatchWriteRowResponse']
-
-
-# GetRangeRequest = schema['com.aliyun.cloudservice.ots2.GetRangeRequest']
-# GetRangeResponse = schema['com.aliyun.cloudservice.ots2.GetRangeResponse']
-
-
-# ResponseMap =
-#   GetRow: GetRowResponse
-#   PutRow: PutRowResponse
-#   UpdateRow: UpdateRowResponse
-#   DeleteRow: DeleteRowResponse
-#   GetRange: GetRangeResponse
-#   BatchGetRow: BatchGetRowResponse
-#   BatchWriteRow: BatchWriteRowResponse
-#   ListTable: ListTableResponse
-#   UpdateTable: UpdateTableResponse
-#   DescribeTable: DescribeTableResponse
-
-
 Client = (options)->
   @accessKeyID = options.accessKeyID
   @accessKeySecret = options.accessKeySecret
