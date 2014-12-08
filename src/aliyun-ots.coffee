@@ -8,7 +8,6 @@ nodefn = require 'when/node'
 bindCallback = nodefn.bindCallback
 Schema = require('protobuf').Schema
 request = nodefn.lift requestFn
-Promise = whenjs.promise
 
 
 schema = new Schema fs.readFileSync './ots_protocol.desc'
@@ -177,6 +176,7 @@ Client::deleteRow = (tableName, condition, primaryColumns, cb)->
   body = DeleteRowRequest.serialize params
   requestResult = @request 'DeleteRow', body
   bindCallback requestResult, cb
+
 
 
 Client::request = (opAction, body)->
