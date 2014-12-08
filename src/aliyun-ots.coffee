@@ -6,56 +6,61 @@ utility = require 'utility'
 whenjs = require 'when'
 nodefn = require 'when/node'
 bindCallback = nodefn.bindCallback
-Schema = require('protobuf').Schema
+SchemaProtobuf = require('protobuf').Schema
 request = nodefn.lift requestFn
 
 
-schema = new Schema fs.readFileSync './ots_protocol.desc'
+schemaProtobuf = new SchemaProtobuf fs.readFileSync './ots_protocol.desc'
 
 
-ErrorMessage = schema['com.aliyun.cloudservice.ots2.ErrorMessage']
+ErrorMessage = schemaProtobuf['com.aliyun.cloudservice.ots2.Error']
 
-CreateTableRequest = schema['com.aliyun.cloudservice.ots2.CreateTableRequest']
-UpdateTableRequest = schema['com.aliyun.cloudservice.ots2.UpdateTableRequest']
-UpdateTableResponse = schema['com.aliyun.cloudservice.ots2.UpdateTableResponse']
-DescribeTableRequest = schema['com.aliyun.cloudservice.ots2.DescribeTableRequest']
-DescribeTableResponse = schema['com.aliyun.cloudservice.ots2.DescribeTableResponse']
-ListTableResponse = schema['com.aliyun.cloudservice.ots2.ListTableResponse']
-DeleteTableRequest = schema['com.aliyun.cloudservice.ots2.DeleteTableRequest']
+CreateTableRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.CreateTableRequest']
+CreateTableResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.CreateTableResponse']
 
-
-GetRowRequest = schema['com.aliyun.cloudservice.ots2.GetRowRequest']
-GetRowResponse = schema['com.aliyun.cloudservice.ots2.GetRowResponse']
-ColumnUpdate = schema['com.aliyun.cloudservice.ots2.ColumnUpdate']
-UpdateRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowRequest']
-UpdateRowResponse = schema['com.aliyun.cloudservice.ots2.UpdateRowResponse']
-PutRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowRequest']
-PutRowResponse = schema['com.aliyun.cloudservice.ots2.PutRowResponse']
-DeleteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowRequest']
-DeleteRowResponse = schema['com.aliyun.cloudservice.ots2.DeleteRowResponse']
+UpdateTableRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.UpdateTableRequest']
+UpdateTableResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.UpdateTableResponse']
+DescribeTableRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.DescribeTableRequest']
+DescribeTableResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.DescribeTableResponse']
+ListTableResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.ListTableResponse']
+DeleteTableRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.DeleteTableRequest']
+CreateTableResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.CreateTableResponse ']
 
 
-RowInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowRequest']
-TableInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowRequest']
-BatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.BatchGetRowRequest']
-RowInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowResponse']
-TableInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowResponse']
-BatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.BatchGetRowResponse']
-PutRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowInBatchWriteRowRequest']
-UpdateRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowInBatchWriteRowRequest']
-DeleteRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowInBatchWriteRowRequest']
-TableInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowRequest']
-BatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.BatchWriteRowRequest']
-RowInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchWriteRowResponse']
-TableInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowResponse']
-BatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.BatchWriteRowResponse']
+GetRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.GetRowRequest']
+GetRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.GetRowResponse']
+ColumnUpdate = schemaProtobuf['com.aliyun.cloudservice.ots2.ColumnUpdate']
+UpdateRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.UpdateRowRequest']
+UpdateRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.UpdateRowResponse']
+PutRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.PutRowRequest']
+PutRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.PutRowResponse']
+DeleteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.DeleteRowRequest']
+DeleteRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.DeleteRowResponse']
 
 
-GetRangeRequest = schema['com.aliyun.cloudservice.ots2.GetRangeRequest']
-GetRangeResponse = schema['com.aliyun.cloudservice.ots2.GetRangeResponse']
+RowInBatchGetRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.RowInBatchGetRowRequest']
+TableInBatchGetRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.TableInBatchGetRowRequest']
+BatchGetRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.BatchGetRowRequest']
+RowInBatchGetRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.RowInBatchGetRowResponse']
+TableInBatchGetRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.TableInBatchGetRowResponse']
+BatchGetRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.BatchGetRowResponse']
+PutRowInBatchWriteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.PutRowInBatchWriteRowRequest']
+UpdateRowInBatchWriteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.UpdateRowInBatchWriteRowRequest']
+DeleteRowInBatchWriteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.DeleteRowInBatchWriteRowRequest']
+TableInBatchWriteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.TableInBatchWriteRowRequest']
+BatchWriteRowRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.BatchWriteRowRequest']
+RowInBatchWriteRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.RowInBatchWriteRowResponse']
+TableInBatchWriteRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.TableInBatchWriteRowResponse']
+BatchWriteRowResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.BatchWriteRowResponse']
+
+
+GetRangeRequest = schemaProtobuf['com.aliyun.cloudservice.ots2.GetRangeRequest']
+GetRangeResponse = schemaProtobuf['com.aliyun.cloudservice.ots2.GetRangeResponse']
 
 
 ResponseMap =
+
+  CreateTable: CreateTableResponse
   GetRow: GetRowResponse
   PutRow: PutRowResponse
   UpdateRow: UpdateRowResponse
@@ -178,11 +183,39 @@ Client::deleteRow = (tableName, condition, primaryColumns, cb)->
   bindCallback requestResult, cb
 
 
+Client::batchGetRow = (tables, cb)->
+  params =
+    tables: tables
+  body = BatchGetRowRequest.serialize params
+  requestResult = @request 'BatchGetRow', body
+  bindCallback requestResult, cb
+
+
+Client::batchWriteRow = (tables, cb)->
+  params =
+    tables: tables
+  body = BatchWriteRowRequest.serialize params
+  requestResult = @request 'BatchWriteRow', body
+  bindCallback requestResult, cb
+
+
+Client::getRange = (tableName, direction, columnsToGet, limit, inclusiveStartPrimaryKey, exclusiveEndPrimaryKey, cb)->
+  params =
+    tableName: tableName
+    direction: 'FORWARD'
+    columnsToGet: columnsToGet
+    limit: limit
+    inclusiveStartPrimaryKey: inclusiveStartPrimaryKey
+    exclusiveEndPrimaryKey: exclusiveEndPrimaryKey
+  body = GetRangeRequest.serialize params
+  requestResult = @request 'GetRange', body
+  bindCallback requestResult, cb
+
 
 Client::request = (opAction, body)->
   canonicalURI = '/' + opAction
   self = @
-  body = body || ''
+  body ?= ''
   hostname = @APIHost
   headers = self._make_headers body, canonicalURI
   url = hostname + canonicalURI
@@ -241,7 +274,7 @@ Client::_check_response_sign = (res, canonicalURI)->
   stringToSign = "#{sorted.join('\n')}\n#{canonicalURI}"
   hmacStringToSign = utility.hmac 'sha1', @accessKeySecret, stringToSign
   authorization = "OTS #{@accessKeyID}:#{hmacStringToSign}"
-  return authorization == authorizationReturn and (otsDate+1000*60*15)>new Date().getTime()
+  return authorization == authorizationReturn and (otsDate + 1000 * 60 * 15) > new Date().getTime()
 
 
 Client::_make_headers = (body, canonicalURI)->

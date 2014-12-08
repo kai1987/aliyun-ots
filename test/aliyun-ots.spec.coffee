@@ -27,7 +27,7 @@ describe '#test client', ->
         name: 'CardID'
         type: 'STRING'
       ]
-      client.createTable 'test000', primaryKeys,
+      client.createTable 'test1', primaryKeys,
         read: 101
         write: 102
       .done ([result, res])->
@@ -40,7 +40,7 @@ describe '#test client', ->
 
   describe '#updateTable', ->
     it 'should update [test1] table success', (done)->
-      client.updateTable 'test000',
+      client.updateTable 'test1',
         read: 200
         write: 200
       .done ([result, res])->
@@ -168,7 +168,7 @@ describe '#test client', ->
 
 
   describe '#deleteRow', ->
-    it 'should delete row sccess', (done)->
+    it 'should delete row success', (done)->
       primary_key_columns = [
         name: 'CardID'
         value:
@@ -182,6 +182,73 @@ describe '#test client', ->
       , (err)->
         console.log err
         done err
+
+
+  describe '#batchGetRow', ->
+    it 'should batchGetRow success', (done)->
+      tables = [
+        tableName: 'test000'
+        rows:
+          primaryKey:
+            name: 'CardID'
+            value:
+              type: 'STRING'
+              vString: '1'
+        columnsToGet: [
+          'CardID'
+          'Remarks'
+          'Amount'
+        ]
+      ]
+      client.batchGetRow tables
+      .done ([result, res])->
+        res.statusCode.should.equal 200
+        done()
+      , (err)->
+        console.log err.body
+        done err
+
+
+  describe '#batchWriteRow', ->
+    it 'should batchWriteRow success', (done)->
+      tables = [
+        tableName: 'test000'
+        putRows:[
+          condition:
+            rowExistence: 'IGNORE'
+          primaryKey: [
+            {
+              name: 'CardID'
+              value:
+                type: 'STRING'
+                vString: '1'
+            }
+          ]
+          attributeColumns: [
+            {
+              name: 'Remarks'
+              value:
+                type: 'STRING'
+                vString: 'remark1'
+            }
+            {
+              name: 'Amount'
+              value:
+                type: 'DOUBLE'
+                vDouble: 4.4
+            }
+          ]
+        ]
+      ]
+
+      client.batchWriteRow tables
+      .done ([result,res])->
+        res.statusCode.should.equal 200
+        done()
+      , (err)->
+        console.log err
+        done err
+
 
 
 
