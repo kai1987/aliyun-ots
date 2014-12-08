@@ -1,10 +1,12 @@
 {
   "name": "aliyun-ots",
   "version": "1.0.0",
-  "description": "Awesome module",
+  "description": "a simple aliyun-ots client for node.js",
   "keywords": [
-    "keyword1",
-    "keyword2"
+    "aliyun",
+    "node.js",
+    "ots",
+    "nosql"
   ],
   "homepage": "https://github.com/soliury/aliyun-ots",
   "bugs": "https://github.com/soliury/aliyun-ots/issues",
