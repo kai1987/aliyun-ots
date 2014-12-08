@@ -1,12 +1,11 @@
 require 'coffee-errors'
 
-
 chai = require 'chai'
 sinon = require 'sinon'
 
 # using compiled JavaScript file here to be sure module works
-ots = require '../lib/aliyun-ots.js'
-config = require '../lib/config'
+ots = require '../src/aliyun-ots'
+config = require '../src/config'
 
 should = chai.should()
 chai.use require 'sinon-chai'
@@ -54,10 +53,12 @@ describe '#test client', ->
     it 'should get descibe info', (done)->
       client.describeTable 'test1'
       .done ([result, res])->
-        console.log result.tableMeta.primaryKey[0]
-        res.statusCode.should.equal 200
-        result.tableMeta.tableName.should.equal 'test1'
-        result.tableMeta.primaryKey[0].name.should.equal 'CardID'
+        if result
+          res.statusCode.should.equal 200
+          should.exist result
+          should.exist result.tableName
+          result.tableMeta.tableName.should.equal 'test1'
+          result.tableMeta.primaryKey[0].name.should.equal 'CardID'
         done()
       , (err)->
         console.log err
@@ -96,6 +97,8 @@ describe '#test client', ->
       columns_to_get = null
       client.getRow 'test000', primary_key_columns, columns_to_get
       .done ([result, res])->
+        should.exist result
+        should.exist result.row
         console.log result.row.attributeColumns
         res.statusCode.should.equal 200
         done()
@@ -160,6 +163,8 @@ describe '#test client', ->
       client.putRow 'test000', 'IGNORE', primary_key_columns, attribute_columns
       .done ([result, res])->
         res.statusCode.should.equal 200
+        should.exist result
+        should.not.equal result.consumed
         result.consumed.capacityUnit.write.should.equal 2
         done()
       , (err)->
@@ -213,7 +218,7 @@ describe '#test client', ->
     it 'should batchWriteRow success', (done)->
       tables = [
         tableName: 'test000'
-        putRows:[
+        putRows: [
           condition:
             rowExistence: 'IGNORE'
           primaryKey: [
@@ -242,7 +247,7 @@ describe '#test client', ->
       ]
 
       client.batchWriteRow tables
-      .done ([result,res])->
+      .done ([result, res])->
         res.statusCode.should.equal 200
         done()
       , (err)->
