@@ -1,12 +1,11 @@
 require 'coffee-errors'
 
-
 chai = require 'chai'
 sinon = require 'sinon'
 
 # using compiled JavaScript file here to be sure module works
-ots = require '../lib/aliyun-ots.js'
-config = require '../lib/config'
+ots = require '../src/aliyun-ots'
+config = require '../src/config'
 
 should = chai.should()
 chai.use require 'sinon-chai'

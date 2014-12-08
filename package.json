@@ -24,6 +24,8 @@
     "test": "gulp test"
   },
   "dependencies": {
+    "lodash": "^2.4.1",
+    "moment": "^2.8.4",
     "protobuf": "^0.11.0",
     "request": "^2.49.0",
     "utility": "^1.2.1",

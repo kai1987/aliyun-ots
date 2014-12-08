@@ -1,3 +1,4 @@
+_ = require 'lodash'
 fs = require 'fs'
 path = require 'path'
 
@@ -5,67 +6,71 @@ requestFn = require 'request'
 utility = require 'utility'
 whenjs = require 'when'
 nodefn = require 'when/node'
-bindCallback = nodefn.bindCallback
 Schema = require('protobuf').Schema
+
+bindCallback = nodefn.bindCallback
 request = nodefn.lift requestFn
 
 
-schema = new Schema fs.readFileSync './ots_protocol.desc'
+schemaDesc = new Schema fs.readFileSync './ots_protocol.desc'
+
+schemas = {}
+schema = (name) ->
+  schemas[name] ?= schemaDesc["com.aliyun.cloudservice.ots2.#{name}"]
+
+# ErrorMessage = schema['com.aliyun.cloudservice.ots2.ErrorMessage']
+
+# CreateTableRequest = schema['com.aliyun.cloudservice.ots2.CreateTableRequest']
+# UpdateTableRequest = schema['com.aliyun.cloudservice.ots2.UpdateTableRequest']
+# UpdateTableResponse = schema['com.aliyun.cloudservice.ots2.UpdateTableResponse']
+# DescribeTableRequest = schema['com.aliyun.cloudservice.ots2.DescribeTableRequest']
+# DescribeTableResponse = schema['com.aliyun.cloudservice.ots2.DescribeTableResponse']
+# ListTableResponse = schema['com.aliyun.cloudservice.ots2.ListTableResponse']
+# DeleteTableRequest = schema['com.aliyun.cloudservice.ots2.DeleteTableRequest']
 
 
-ErrorMessage = schema['com.aliyun.cloudservice.ots2.ErrorMessage']
-
-CreateTableRequest = schema['com.aliyun.cloudservice.ots2.CreateTableRequest']
-UpdateTableRequest = schema['com.aliyun.cloudservice.ots2.UpdateTableRequest']
-UpdateTableResponse = schema['com.aliyun.cloudservice.ots2.UpdateTableResponse']
-DescribeTableRequest = schema['com.aliyun.cloudservice.ots2.DescribeTableRequest']
-DescribeTableResponse = schema['com.aliyun.cloudservice.ots2.DescribeTableResponse']
-ListTableResponse = schema['com.aliyun.cloudservice.ots2.ListTableResponse']
-DeleteTableRequest = schema['com.aliyun.cloudservice.ots2.DeleteTableRequest']
-
-
-GetRowRequest = schema['com.aliyun.cloudservice.ots2.GetRowRequest']
-GetRowResponse = schema['com.aliyun.cloudservice.ots2.GetRowResponse']
-ColumnUpdate = schema['com.aliyun.cloudservice.ots2.ColumnUpdate']
-UpdateRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowRequest']
-UpdateRowResponse = schema['com.aliyun.cloudservice.ots2.UpdateRowResponse']
-PutRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowRequest']
-PutRowResponse = schema['com.aliyun.cloudservice.ots2.PutRowResponse']
-DeleteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowRequest']
-DeleteRowResponse = schema['com.aliyun.cloudservice.ots2.DeleteRowResponse']
+# GetRowRequest = schema['com.aliyun.cloudservice.ots2.GetRowRequest']
+# GetRowResponse = schema['com.aliyun.cloudservice.ots2.GetRowResponse']
+# ColumnUpdate = schema['com.aliyun.cloudservice.ots2.ColumnUpdate']
+# UpdateRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowRequest']
+# UpdateRowResponse = schema['com.aliyun.cloudservice.ots2.UpdateRowResponse']
+# PutRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowRequest']
+# PutRowResponse = schema['com.aliyun.cloudservice.ots2.PutRowResponse']
+# DeleteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowRequest']
+# DeleteRowResponse = schema['com.aliyun.cloudservice.ots2.DeleteRowResponse']
 
 
-RowInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowRequest']
-TableInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowRequest']
-BatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.BatchGetRowRequest']
-RowInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowResponse']
-TableInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowResponse']
-BatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.BatchGetRowResponse']
-PutRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowInBatchWriteRowRequest']
-UpdateRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowInBatchWriteRowRequest']
-DeleteRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowInBatchWriteRowRequest']
-TableInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowRequest']
-BatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.BatchWriteRowRequest']
-RowInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchWriteRowResponse']
-TableInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowResponse']
-BatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.BatchWriteRowResponse']
+# RowInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowRequest']
+# TableInBatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowRequest']
+# BatchGetRowRequest = schema['com.aliyun.cloudservice.ots2.BatchGetRowRequest']
+# RowInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchGetRowResponse']
+# TableInBatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchGetRowResponse']
+# BatchGetRowResponse = schema['com.aliyun.cloudservice.ots2.BatchGetRowResponse']
+# PutRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.PutRowInBatchWriteRowRequest']
+# UpdateRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.UpdateRowInBatchWriteRowRequest']
+# DeleteRowInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.DeleteRowInBatchWriteRowRequest']
+# TableInBatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowRequest']
+# BatchWriteRowRequest = schema['com.aliyun.cloudservice.ots2.BatchWriteRowRequest']
+# RowInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.RowInBatchWriteRowResponse']
+# TableInBatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.TableInBatchWriteRowResponse']
+# BatchWriteRowResponse = schema['com.aliyun.cloudservice.ots2.BatchWriteRowResponse']
 
 
-GetRangeRequest = schema['com.aliyun.cloudservice.ots2.GetRangeRequest']
-GetRangeResponse = schema['com.aliyun.cloudservice.ots2.GetRangeResponse']
+# GetRangeRequest = schema['com.aliyun.cloudservice.ots2.GetRangeRequest']
+# GetRangeResponse = schema['com.aliyun.cloudservice.ots2.GetRangeResponse']
 
 
-ResponseMap =
-  GetRow: GetRowResponse
-  PutRow: PutRowResponse
-  UpdateRow: UpdateRowResponse
-  DeleteRow: DeleteRowResponse
-  GetRange: GetRangeResponse
-  BatchGetRow: BatchGetRowResponse
-  BatchWriteRow: BatchWriteRowResponse
-  ListTable: ListTableResponse
-  UpdateTable: UpdateTableResponse
-  DescribeTable: DescribeTableResponse
+# ResponseMap =
+#   GetRow: GetRowResponse
+#   PutRow: PutRowResponse
+#   UpdateRow: UpdateRowResponse
+#   DeleteRow: DeleteRowResponse
+#   GetRange: GetRangeResponse
+#   BatchGetRow: BatchGetRowResponse
+#   BatchWriteRow: BatchWriteRowResponse
+#   ListTable: ListTableResponse
+#   UpdateTable: UpdateTableResponse
+#   DescribeTable: DescribeTableResponse
 
 
 Client = (options)->
@@ -83,10 +88,17 @@ Client = (options)->
 
   @requestAgent = options.agent || null
   @requestTimeout = options.requestTimeout || 5000
-  return
-
 
 exports = module.exports = Client
+
+Client::query = (action, params, cb) ->
+  params ?= {}
+  if _.isFunction(params)
+    [params, cb] = [{}, params]
+
+  body = schema("#{action}Request").serialize params
+  requestResult = @request action, body
+  bindCallback requestResult, cb
 
 Client::createTable = (name, primaryKeys, capacityUnit, cb)->
   params =
@@ -96,52 +108,37 @@ Client::createTable = (name, primaryKeys, capacityUnit, cb)->
     reservedThroughput:
       capacityUnit: capacityUnit
 
-  body = CreateTableRequest.serialize params
-  requestResult = @request 'CreateTable', body
-  bindCallback requestResult, cb
-
+  @query 'CreateTable', params, cb
 
 Client::updateTable = (name, capacityUnit, cb)->
   params =
     tableName: name
     reservedThroughput:
       capacityUnit: capacityUnit
-  body = UpdateTableRequest.serialize params
-  requestResult = @request 'UpdateTable', body
-  bindCallback requestResult, cb
 
+  @query 'UpdateTable', params, cb
 
 Client::describeTable = (name, cb)->
   params =
     tableName: name
 
-  body = DescribeTableRequest.serialize params
-  requestResult = @request 'DescribeTable', body
-  bindCallback requestResult, cb
-
+  @query 'DescribeTable', params, cb
 
 Client::listTable = (cb)->
-  requestResult = @request 'ListTable', ''
-  bindCallback requestResult, cb
-
+  @query 'ListTable', cb
 
 Client::deleteTable = (name, cb)->
-  params =
+  @query 'DeleteTable',
     tableName: name
-  body = DeleteTableRequest.serialize params
-  requestResult = @request 'DeleteTable', body
-  bindCallback requestResult, cb
-
+  , cb
 
 Client::getRow = (name, primaryColumns, columnsToGet, cb)->
   params =
     tableName: name
     primaryKey: primaryColumns
     columnsToGet: columnsToGet
-  body = GetRowRequest.serialize params
-  requestResult = @request 'GetRow', body
-  bindCallback requestResult, cb
 
+  @query 'GetRow', params, cb
 
 Client::putRow = (tableName, condition, primaryColumns, attributeColumns, cb)->
   params =
@@ -150,10 +147,8 @@ Client::putRow = (tableName, condition, primaryColumns, attributeColumns, cb)->
       rowExistence: condition
     primaryKey: primaryColumns
     attributeColumns: attributeColumns
-  body = PutRowRequest.serialize params
-  requestResult = @request 'PutRow', body
-  bindCallback requestResult, cb
 
+  @query 'PutRow', params, cb
 
 Client::updateRow = (tableName, condition, primaryColumns, attributeColumns, cb)->
   params =
@@ -162,10 +157,8 @@ Client::updateRow = (tableName, condition, primaryColumns, attributeColumns, cb)
       rowExistence: condition
     primaryKey: primaryColumns
     attributeColumns: attributeColumns
-  body = UpdateRowRequest.serialize params
-  requestResult = @request 'UpdateRow', body
-  bindCallback requestResult, cb
 
+  @query 'UpdateRow', params, cb
 
 Client::deleteRow = (tableName, condition, primaryColumns, cb)->
   params =
@@ -173,18 +166,15 @@ Client::deleteRow = (tableName, condition, primaryColumns, cb)->
     condition:
       rowExistence: condition
     primaryKey: primaryColumns
-  body = DeleteRowRequest.serialize params
-  requestResult = @request 'DeleteRow', body
-  bindCallback requestResult, cb
 
+  @query 'DeleteRow', params, cb
 
 
 Client::request = (opAction, body)->
   canonicalURI = '/' + opAction
-  self = @
-  body = body || ''
+  body ?= ''
   hostname = @APIHost
-  headers = self._make_headers body, canonicalURI
+  headers = @_make_headers body, canonicalURI
   url = hostname + canonicalURI
   err = {}
 
@@ -195,39 +185,20 @@ Client::request = (opAction, body)->
     body: body
     json: false
     encoding: null
-  .then ([res, body])->
+  .then ([res, body]) =>
     statusCode = res.statusCode
-    if !self._check_response_sign res, canonicalURI
-      throw 'WrongResponseSign'
     if statusCode != 200
-      err = new Error 'requestError'
-      err.name = 'requestError'
-      err.code = statusCode
-      try
-        err.info = ErrorMessage.parse body
-      catch  e
-        err.info = 'MalformedError'
-      try
-        err.body = body.toString()
-      catch
-        err.body = null
-      throw err
+      # console.log body.toString()
+      throw new Error "RequestError Code=#{statusCode} body=#{body}"
+    if !@_check_response_sign res, canonicalURI
+      throw new Error 'WrongResponseSign'
 
-
-    protoResponse = ResponseMap[opAction]
-    if !protoResponse
-      return [null, res]
-
-    try
-      result = protoResponse.parse res.body
-    catch e
-      err = new Error 'malFormaedBuf'
-      err.body = body.toString()
-      err.info = e.message
-      throw err
-
+    protoResponse = schema("#{opAction}Response")
+    result = protoResponse.parse body
     return [result, res]
 
+  .catch (err) ->
+    throw err
 
 Client::_check_response_sign = (res, canonicalURI)->
   headers = res.headers || {}
