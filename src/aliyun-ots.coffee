@@ -12,7 +12,7 @@ bindCallback = nodefn.bindCallback
 request = nodefn.lift requestFn
 
 
-schemaDesc = new Schema fs.readFileSync './ots_protocol.desc'
+schemaDesc = new Schema fs.readFileSync path.join __dirname, '../ots_protocol.desc'
 
 schemas = {}
 schema = (name) ->
