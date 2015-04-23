@@ -1,6 +1,6 @@
 {
   "name": "aliyun-ots",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a simple aliyun-ots client for node.js",
   "keywords": [
     "aliyun",
