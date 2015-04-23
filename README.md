@@ -12,6 +12,8 @@
 
 ## Usage Example
 
+支持promise和callback两种模式，详细使用方法见[test](https://github.com/youshe/aliyun-ots/blob/master/test/aliyun-ots.spec.coffee)。
+
 ## Testing
 
     npm test
