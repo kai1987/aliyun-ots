@@ -128,10 +128,10 @@ Client::batchWriteRow = (tables, cb)->
   @query 'BatchWriteRow', params, cb
 
 
-Client::getRange = (tableName, direction, columnsToGet, limit, inclusiveStartPrimaryKey, exclusiveEndPrimaryKey, cb)->
+Client::getRange = (tableName, direction = 'FORWARD', columnsToGet, limit, inclusiveStartPrimaryKey, exclusiveEndPrimaryKey, cb)->
   params =
     tableName: tableName
-    direction: 'FORWARD'
+    direction: direction
     columnsToGet: columnsToGet
     limit: limit
     inclusiveStartPrimaryKey: inclusiveStartPrimaryKey
