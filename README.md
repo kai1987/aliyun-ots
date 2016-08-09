@@ -8,7 +8,11 @@
 
 ## Installation
 
-    npm install aliyun-ots
+    fork from https://github.com/youshe/aliyun-ots
+
+    just rename the project to release a new npm version. (to fix the getRange bug)
+
+    npm install aliyun-ots-gama
 
 ## Usage Example
 
